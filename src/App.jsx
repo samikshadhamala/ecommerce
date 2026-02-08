@@ -1,6 +1,6 @@
 import React from 'react'
- import { Route, Routes } from 'react-router-dom'
- import Mainlayout from './layouts/Mainlayout.jsx'
+import { Route, Routes } from 'react-router-dom'
+import MainLayout from './layouts/MainLayout.jsx'
 import Homepages from './pages/Homepages.jsx'
 import NotFound from './pages/NotFound.jsx'
 import CartProvider from './context/CartContex.jsx'
@@ -21,7 +21,7 @@ function App() {
     <Routes>
       <Route
       path='/'
-      element={<Mainlayout />}
+      element={<MainLayout />}
       >
         <Route
         index
@@ -31,9 +31,9 @@ function App() {
         <Route 
         path='products/:id'
       element= {
-        <productRoutes>
+        <ProtectedRouter>
          <SingleProductPage />
-        </productRoutes>}
+        </ProtectedRouter>}
          />
       
       
