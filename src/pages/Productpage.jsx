@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/products/ProductsCard';
 import { useCart } from '../Hooks/UseCart';
 import CategoryData from'../data/Categories';
-import CategoryTab from '../components/products/Categorytab';
 import SearchProduct from '../components/products/SearchProduct';
 import ProductRange from '../components/products/ProductRange';
 import FilterByRating from '../components/products/FilterByRating';
@@ -128,18 +127,46 @@ console.log("maxRating", maxRating)
             <div className="absolute -bottom-3 -left-3 w-6 h-6 bg-gradient-to-br from-cyan-500 to-indigo-500 rounded-full animate-ping shadow-lg" style={{animationDelay: '1s'}}></div>
             <div className="absolute -bottom-3 -right-3 w-6 h-6 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full animate-ping shadow-lg" style={{animationDelay: '1.5s'}}></div>
             
-            <CategoryTab
-              categoryName="all"
-              setSelectedCategory={setSelectedCategory}
-              isSelected={selectedCategory === "all"}
-            />
+            <button
+              onClick={() => setSelectedCategory("all")}
+              className={`group px-12 py-6 rounded-3xl font-black text-2xl transition-all duration-700 transform hover:scale-110 hover:-translate-y-4 hover:rotate-2 relative overflow-hidden shadow-2xl ${
+                selectedCategory === "all" 
+                  ? "bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 text-white shadow-purple-500/50 animate-pulse" 
+                  : "bg-gradient-to-r from-gray-50 to-white text-gray-800 hover:from-purple-50 hover:to-pink-50 hover:shadow-2xl border-2 border-gray-200 hover:border-purple-300"
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-3">
+                <span className="text-3xl">🌟</span>
+                All Products
+              </span>
+              {selectedCategory === "all" && (
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-pink-700 opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+              )}
+            </button>
             {CategoryData.map((category, index) => (
-              <CategoryTab
+              <button
                 key={category}
-                categoryName={category}
-                setSelectedCategory={setSelectedCategory}
-                isSelected={selectedCategory === category}
-              />
+                onClick={() => setSelectedCategory(category)}
+                className={`group px-12 py-6 rounded-3xl font-black text-2xl transition-all duration-700 transform hover:scale-110 hover:-translate-y-4 hover:rotate-2 capitalize relative overflow-hidden shadow-2xl ${
+                  selectedCategory === category 
+                    ? "bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 text-white shadow-purple-500/50 animate-pulse" 
+                    : "bg-gradient-to-r from-gray-50 to-white text-gray-800 hover:from-purple-50 hover:to-pink-50 hover:shadow-2xl border-2 border-gray-200 hover:border-purple-300"
+                }`}
+                style={{animationDelay: `${index * 0.2}s`}}
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  <span className="text-3xl">
+                    {category === "men's clothing" && "👔"}
+                    {category === "women's clothing" && "👗"}
+                    {category === "electronics" && "📱"}
+                    {category === "jewelery" && "💎"}
+                  </span>
+                  {category}
+                </span>
+                {selectedCategory === category && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-pink-700 opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+                )}
+              </button>
             ))}
           </div>
           {filterItems.length === 0 ? (
